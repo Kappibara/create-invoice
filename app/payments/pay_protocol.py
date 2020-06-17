@@ -10,7 +10,7 @@ REQUIRED_FIELDS_PAY = ['amount', 'currency', 'shop_id', 'shop_order_id']
 
 def get_pay_protocol(form, payment):
     data = {
-        'amount': form.amount.quantize(Decimal('1.00')).to_eng_string(),
+        'amount': form.amount.data.quantize(Decimal('1.00')).to_eng_string(),
         'currency': form.currency.data,
         'shop_id': SHOP_ID,
         'description': form.description.data,

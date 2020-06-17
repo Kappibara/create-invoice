@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import requests
 from flask import render_template
 
@@ -19,15 +21,19 @@ def get_invoice(form, payment):
         "shop_order_id": payment.shop_order_id,
     }
     sign = create_sign(data, REQUIRED_FIELDS_INVOICE)
-    answer = requests.post(
+    response = requests.post(
         PIASTIX_INVOICE_URL, json={**data, "sign": sign},
         headers={'Content-Type': 'application/json'},
         timeout=TIMEOUT_TIME
     )
-    if answer.status_code == 200:
-        data = answer.json()['data']
-        data = {'m_curorderid': data['data']['m_curorderid'],
-                'm_historyid': data['data']['m_historyid'],
-                'm_historytm': data['data']['m_historytm'],
-                'referer': data['data']['referer']}
-        return render_template('form/invoice_form.html', **data)
+    print(response.status_code)
+    raise Exception
+    if response.status_code != 200:
+        raise Exception
+
+    data = response.json()['data']
+    data = {'m_curorderid': data['data']['m_curorderid'],
+            'm_historyid': data['data']['m_historyid'],
+            'm_historytm': data['data']['m_historytm'],
+            'referer': data['data']['referer']}
+    return render_template('form/invoice_form.html', **data)

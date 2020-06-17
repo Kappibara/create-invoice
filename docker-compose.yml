@@ -1,0 +1,27 @@
+version: '3'
+services:
+  web:
+    build: .
+    environment:
+      SQLALCHEMY_DATABASE_URI: postgres://postgres:postgres@localhost:5433/piastrix_db
+    ports:
+      - 5000:5000
+    command: python3 ./run.py
+    volumes:
+      - .:/app
+    depends_on:
+      - database
+  database:
+    image: postgres:10-alpine
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: piastrix_db
+      PGDATA: /var/lib/postgresql/data
+    networks:
+      - default
+    ports:
+      - 5433:5432
+    restart: always

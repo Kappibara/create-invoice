@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import requests
 from flask import redirect
 
@@ -26,9 +28,8 @@ def get_bill_protocol(form, payment):
         headers={'Content-Type': 'application/json'},
         timeout=TIMEOUT_TIME
     )
-    if answer.status_code == 200:
-        data = answer.json()['data']
-        return redirect(data['url'])
-    elif answer.status_code == 500:
-        pass
-    return
+
+    if answer.status_code != 200:
+        raise Exception
+    data = answer.json()['data']
+    return redirect(data['url'])
