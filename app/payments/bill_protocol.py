@@ -17,7 +17,7 @@ def get_bill_protocol(form, payment):
         "shop_amount": float(form.amount.data),
         "shop_currency": USD_CURRENCY,
         "shop_id": SHOP_ID,
-        "shop_order_id": payment.shop_order_id,
+        "shop_order_id": str(payment.shop_order_id),
     }
     sign = create_sign(data, REQUIRED_FIELDS_BILL)
 

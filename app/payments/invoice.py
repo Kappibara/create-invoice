@@ -16,7 +16,7 @@ def get_invoice(form, payment):
         "currency": RUB_CURRENCY,
         "payway": "payeer_rub",
         "shop_id": SHOP_ID,
-        "shop_order_id": payment.shop_order_id,
+        "shop_order_id": str(payment.shop_order_id),
     }
     sign = create_sign(data, REQUIRED_FIELDS_INVOICE)
     answer = requests.post(
