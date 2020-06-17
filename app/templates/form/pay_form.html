@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Payment
+{% endblock %}
+
+{% block content %}
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dsmiss="alert">
+                &times;
+            </button>
+        {{ message }}
+        </div>
+    {% endfor %}
+    {% block form_block %}
+        <form id="fileinfo" name="fileinfo" method="post" action="{{ url_for('payment') }}" >
+            <div class="form-group">
+                {{ form.hidden_tag() }}
+                {% for field, error in form.errors.items() %}
+                    <div class="alert alert-danger" role="alert" id="errors{{ loop.index }}">
+                        {{ form[field].label }}: {{  error[0] }}
+                    </div>
+                {% endfor %}
+                <div class="form-group">
+                    {{ form.amount(class="form-control mt-2", id="exampleInputEmail1", placeholder="Цена") }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.currency(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.description(class="form-control") }}
+                </div>
+                {{ form.submit(class="btn btn-lg btn-primary btn-block") }}
+
+            </div>
+        </form>
+    {% endblock %}
+
+    <script>
+
+        window.addEventListener('click', (event) => {
+            let error1 = document.getElementById("errors1");
+            let error2 = document.getElementById("errors2");
+            error1.style.display = "none";
+            if (!!error2) {
+                error2.style.display = "none";
+            }
+        })
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "form/pay_form.html" %}
+{% block form_block %}
+    <form method="GET" action="https://payeer.com/api/merchant/process.php">
+        <input name="lang" value="ru" />
+        <input name="m_curorderid" value="{{ m_curorderid }}"/>
+        <input name="m_historyid" value="{{ m_historyid }}"/>
+        <input name="m_historytm" value="{{ m_historytm }}"/>
+        <input name="referer" value="{{ referer }}"/>
+        <input type="submit"/>
+    </form>
+{% endblock %}
