@@ -1,14 +1,14 @@
-version: '3'
+version: '3.4'
 services:
   web:
     build: .
-    environment:
-      SQLALCHEMY_DATABASE_URI: postgres://postgres:postgres@localhost:5433/piastrix_db
+
     ports:
       - 5000:5000
-    command: python3 ./run.py
+    command: ["python", "run.py"]
     volumes:
       - .:/app
+
     depends_on:
       - database
   database:

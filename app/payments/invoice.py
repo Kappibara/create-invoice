@@ -26,8 +26,7 @@ def get_invoice(form, payment):
         headers={'Content-Type': 'application/json'},
         timeout=TIMEOUT_TIME
     )
-    print(response.status_code)
-    raise Exception
+
     if response.status_code != 200:
         raise Exception
 
