@@ -1,6 +1,7 @@
 {% extends "form/pay_form.html" %}
 {% block form_block %}
     <form method="GET" action="https://payeer.com/api/merchant/process.php">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <input name="lang" value="ru" />
         <input name="m_curorderid" value="{{ m_curorderid }}"/>
         <input name="m_historyid" value="{{ m_historyid }}"/>
