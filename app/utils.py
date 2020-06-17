@@ -1,6 +1,10 @@
 import hashlib
 
 TIMEOUT_TIME = 5
+EUR_CURRENCY = 978
+USD_CURRENCY = 840
+RUB_CURRENCY = 643
+
 
 PAY_URL = 'https://pay.piastrix.com/ru/pay'
 PIASTIX_BILL_URL = 'https://core.piastrix.com/bill/create'

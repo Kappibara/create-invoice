@@ -5,11 +5,14 @@ from wtforms.validators import (
 )
 
 
+from app.utils import EUR_CURRENCY, USD_CURRENCY, RUB_CURRENCY
+
+
 class PaymentForm(FlaskForm):
     amount = DecimalField('Цена', places=2)
     currency = SelectField(
         'currency',
-        choices=[(978, 'EUR'), (840, 'USD'), (643, 'RUB')],
+        choices=[(EUR_CURRENCY, 'EUR'), (USD_CURRENCY, 'USD'), (RUB_CURRENCY, 'RUB')],
         validate_choice=False,
         validators=[]
     )
