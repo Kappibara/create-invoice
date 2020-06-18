@@ -11,7 +11,7 @@ app.config.from_object(Configuration)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 manager = Manager(app)
-manager.add_command('db', MigrateCommand)
+manager.add_command("db", MigrateCommand)
 csrf = CSRFProtect()
 csrf.init_app(app)
 from app.view import *

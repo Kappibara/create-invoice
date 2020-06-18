@@ -7,16 +7,17 @@ EUR_CURRENCY = 978
 USD_CURRENCY = 840
 RUB_CURRENCY = 643
 
+# Это лучше вынести в переменные окружения и через конфиг , но уже не буду менять :)
 SHOP_ID = 5
-SHOP_SECRET_KEY = 'SecretKey01'
+SHOP_SECRET_KEY = "SecretKey01"
 
 
 def create_sign(data, fields):
     if data:
         sorted_fields = sorted(fields)
-        str_for_sign = ':'.join(
-            str(data[key]) for key in sorted_fields
-        ) + SHOP_SECRET_KEY
+        str_for_sign = (
+            ":".join(str(data[key]) for key in sorted_fields) + SHOP_SECRET_KEY
+        )
         return hashlib.sha256(str_for_sign.encode()).hexdigest()
     return ""
 
@@ -24,10 +25,11 @@ def create_sign(data, fields):
 def get_data(data, fields, url):
     sign = create_sign(data, fields)
     response = requests.post(
-        url, json={**data, "sign": sign},
-        headers={'Content-Type': 'application/json'},
-        timeout=TIMEOUT_TIME
+        url,
+        json={**data, "sign": sign},
+        headers={"Content-Type": "application/json"},
+        timeout=TIMEOUT_TIME,
     )
     if response.status_code != 200:
         raise Exception
-    return response.json()['data']
+    return response.json()["data"]

@@ -11,10 +11,20 @@ services:
 
     depends_on:
       - database
+  migration:
+    build: .
+    command: >
+      sh -c "python manage.py db init &&
+            python manage.py db migrate &&
+            python manage.py db upgrade"
+    volumes:
+      - .:/app
+    links:
+      - database
+    depends_on:
+      - database
   database:
     image: postgres:10-alpine
-    volumes:
-      - ./postgres_data:/var/lib/postgresql/data/
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -22,6 +32,4 @@ services:
       PGDATA: /var/lib/postgresql/data
     networks:
       - default
-    ports:
-      - 5433:5432
     restart: always
