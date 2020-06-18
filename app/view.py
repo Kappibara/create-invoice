@@ -42,11 +42,11 @@ def payment():
     return render_template("form/pay_form.html", form=form)
 
 
-# @app.errorhandler(Exception)
-# def handle_exception(e):
-#     if isinstance(e, HTTPException):
-#         return e
-#     return render_template("errors/error.html", e=e), 500
+@app.errorhandler(Exception)
+def handle_exception(e):
+    if isinstance(e, HTTPException):
+        return e
+    return render_template("errors/error.html", e=e), 500
 
 
 @app.route("/<path:path>/")
